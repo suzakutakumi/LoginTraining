@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Login</title>
+</head>
+
+<body>
+    {{ if .login }}
+    ログインしています
+    <br/>
+    こんにちは{{ .name }}さん
+    <br/>
+    あなたのメールアドレスは{{ .mail }}です
+    <br/>
+    <input type="submit" id="submit" value="サインアウト">
+    <script>
+        document.getElementById("submit").onclick = () => {
+            fetch("/api/user/signout", { method: "POST" })
+                .then((res) => {
+                    if (res.status == 200) {
+                        alert("サインアウト成功")
+                        location.reload()
+                    } else {
+                        alert(res.status)
+                    }
+                })
+        }
+    </script>
+    {{ else }}
+    ログインしていません<br />
+    <a href="/login">ログイン</a>
+    <br />
+    <a href="/signup">サインアップ</a>
+    {{ end }}
+</body>
+
+</html>

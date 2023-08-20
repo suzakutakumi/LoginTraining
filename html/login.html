@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Login</title>
+</head>
+
+<body>
+    ログイン
+    <br/>
+    <input type="text" id="id" />
+    <br />
+    <input type="text" id="pass" />
+    <br />
+    <input type="submit" id="submit" />
+    <script>
+        document.getElementById("submit").onclick = () => {
+            let id = document.getElementById("id").value
+            let password = document.getElementById("pass").value
+            fetch("/api/user/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id,
+                    password,
+                })
+            }).then((res) => {
+                if (res.status == 200) {
+                    alert("ログイン成功")
+                    location.reload()
+                } else {
+                    alert(res.status)
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
